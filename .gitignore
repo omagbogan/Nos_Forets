@@ -1,0 +1,10 @@
+node_modules/
+
+nofna-website/.next
+nofna-website/.env
+nofna-website/.env.local
+
+nofna-cms/.tmp
+nofna-cms/.cache
+nofna-cms/build
+nofna-cms/.env

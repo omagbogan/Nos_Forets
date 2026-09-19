@@ -1,0 +1,93 @@
+{
+  "nav": {
+    "accueil": "Home",
+    "presentation": "About",
+    "projets": "Projects",
+    "ressources": "Resources",
+    "equipe": "Team",
+    "contact": "Contact",
+    "rapports": "Reports & Publications",
+    "actualites": "News"
+  },
+  "hero": {
+    "titre": "Together for a greener future",
+    "texte": "Protecting nature, restoring ecosystems, and building a more sustainable world, today and for future generations.",
+    "bouton": "Discover our projects"
+  },
+  "stats": {
+    "hectares": "Hectares restored",
+    "arbres": "Trees planted",
+    "projets": "Active projects",
+    "annees": "Years of activity"
+  },
+  "mission": {
+    "label": "Our mission",
+    "titre": "Acting today to preserve tomorrow",
+    "texte": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "lien": "Learn more"
+  },
+  "projetsVedette": {
+    "label": "Our projects",
+    "titre": "Featured projects",
+    "voirTout": "View all projects",
+    "enSavoirPlus": "Learn more"
+  },
+  "actualites": {
+    "label": "News",
+    "titre": "Latest news",
+    "voirTout": "View all news",
+    "lireArticle": "Read article"
+  },
+  "cta": {
+    "label": "Support our action",
+    "titre": "Together, let's make a difference",
+    "bouton": "Contact us"
+  },
+  "footer": {
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+    "navigation": "Navigation",
+    "nosProjets": "Our projects",
+    "ressources": "Resources",
+    "newsletter": "Newsletter",
+    "newsletterTexte": "Stay informed about our actions",
+    "emailPlaceholder": "Your email address",
+    "droits": "All rights reserved.",
+    "mentionsLegales": "Legal notice",
+    "confidentialite": "Privacy policy",
+    "cookies": "Cookies"
+  },
+    "publicationsPage": {
+    "label": "Resources",
+    "titre": "Reports & Publications",
+    "telecharger": "Download"
+  },
+  "actualitesPage": {
+    "label": "News",
+    "titre": "All our news",
+    "lireArticle": "Read article"
+  },
+  "equipePage": {
+    "label": "Team",
+    "titre": "Our team"
+  },
+  "contactPage": {
+    "label": "Contact",
+    "titre": "Contact us",
+    "nom": "Name",
+    "email": "Email",
+    "message": "Message",
+    "envoyer": "Send",
+    "confirmation": "Thank you for your message, we will get back to you shortly.",
+    "coordonnees": "Our contact details",
+    "adresse": "Address",
+    "telephone": "Phone",
+    "horaires": "Hours",
+    "horairesValeur": "Mon - Fri: 8:00 AM - 5:00 PM"
+  },
+    "carte": {
+    "label": "Our areas of intervention",
+    "titre": "Where we work in Côte d'Ivoire",
+    "voirProjet": "View project",
+    "tous": "All"
+  }
+}

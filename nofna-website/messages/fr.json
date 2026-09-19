@@ -1,0 +1,93 @@
+{
+  "nav": {
+    "accueil": "Accueil",
+    "presentation": "Présentation",
+    "projets": "Projets",
+    "ressources": "Ressources",
+    "equipe": "Équipe",
+    "contact": "Contact",
+    "rapports": "Rapports & Publications",
+    "actualites": "Actualités"
+  },
+  "hero": {
+    "titre": "Ensemble pour un avenir plus vert",
+    "texte": "Protéger la nature, restaurer les écosystèmes et construire un monde plus durable, pour aujourd'hui et pour les générations futures.",
+    "bouton": "Découvrir nos projets"
+  },
+  "stats": {
+    "hectares": "Hectares restaurés",
+    "arbres": "Arbres plantés",
+    "projets": "Projets actifs",
+    "annees": "Années d'activité"
+  },
+  "mission": {
+    "label": "Notre mission",
+    "titre": "Agir aujourd'hui pour préserver demain",
+    "texte": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "lien": "En savoir plus"
+  },
+  "projetsVedette": {
+    "label": "Nos projets",
+    "titre": "Projets en vedette",
+    "voirTout": "Voir tous les projets",
+    "enSavoirPlus": "En savoir plus"
+  },
+  "actualites": {
+    "label": "Actualités",
+    "titre": "Nos dernières actualités",
+    "voirTout": "Voir toutes les actualités",
+    "lireArticle": "Lire l'article"
+  },
+  "cta": {
+    "label": "Soutenez notre action",
+    "titre": "Ensemble, faisons la différence",
+    "bouton": "Nous contacter"
+  },
+  "footer": {
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+    "navigation": "Navigation",
+    "nosProjets": "Nos projets",
+    "ressources": "Ressources",
+    "newsletter": "Newsletter",
+    "newsletterTexte": "Restez informés de nos actions",
+    "emailPlaceholder": "Votre adresse e-mail",
+    "droits": "Tous droits réservés.",
+    "mentionsLegales": "Mentions légales",
+    "confidentialite": "Politique de confidentialité",
+    "cookies": "Cookies"
+  },
+  "publicationsPage": {
+    "label": "Ressources",
+    "titre": "Rapports & Publications",
+    "telecharger": "Télécharger"
+  },
+  "actualitesPage": {
+    "label": "Actualités",
+    "titre": "Toutes nos actualités",
+    "lireArticle": "Lire l'article"
+  },
+  "equipePage": {
+    "label": "Équipe",
+    "titre": "Notre équipe"
+  },
+  "contactPage": {
+    "label": "Contact",
+    "titre": "Contactez-nous",
+    "nom": "Nom",
+    "email": "E-mail",
+    "message": "Message",
+    "envoyer": "Envoyer",
+    "confirmation": "Merci pour votre message, nous vous répondrons rapidement.",
+    "coordonnees": "Nos coordonnées",
+    "adresse": "Adresse",
+    "telephone": "Téléphone",
+    "horaires": "Horaires",
+    "horairesValeur": "Lun - Ven : 8h00 - 17h00"
+  },
+    "carte": {
+    "label": "Nos zones d'intervention",
+    "titre": "Où nous intervenons en Côte d'Ivoire",
+    "voirProjet": "Voir le projet",
+    "tous": "Tous"
+  }
+}
