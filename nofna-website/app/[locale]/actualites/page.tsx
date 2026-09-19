@@ -18,7 +18,7 @@ export default function ActualitesPage() {
 
       <div className="grid md:grid-cols-3 gap-6">
         {news.map((n) => (
-          <div key={n.slug} className="bg-white rounded-lg overflow-hidden shadow-sm border">
+          <div key={n.slug} className="bg-white rounded-lg overflow-hidden shadow-sm">
             <img src={n.image} alt={n.title} className="w-full h-40 object-cover" />
             <div className="p-5">
               <p className="text-xs text-gray-500 mb-2">📅 {n.date}</p>

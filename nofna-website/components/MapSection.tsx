@@ -12,7 +12,7 @@ export default async function MapSection({ locale }: { locale: string }) {
         <p className="text-green-700 font-semibold text-sm mb-1">{t("label").toUpperCase()}</p>
         <h2 className="text-3xl font-bold text-green-900 mb-8">{t("titre")}</h2>
 
-        <div className="bg-white rounded-lg overflow-hidden shadow-sm border p-4">
+        <div className="bg-white rounded-lg overflow-hidden shadow-sm p-4">
           <div className="h-[400px]">
             <MapWithList projects={projects} />
           </div>

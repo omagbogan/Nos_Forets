@@ -9,6 +9,7 @@ export default function Header() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  
 
   const [resOpen, setResOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -30,7 +31,7 @@ export default function Header() {
   ];
 
   function switchLanguage(newLocale: string) {
-    router.replace(pathname, { locale: newLocale });
+  router.replace(pathname, { locale: newLocale, scroll: false });
   }
 
   return (
@@ -42,7 +43,7 @@ export default function Header() {
         </Link>
 
         {/* Navigation — cachée sur mobile */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+        <nav className="hidden md:flex items-center gap-6 text-base font-semibold">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href}>
               {link.label}

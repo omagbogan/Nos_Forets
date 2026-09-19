@@ -17,7 +17,7 @@ export default function PublicationsPage() {
 
       <div className="space-y-4">
         {publications.map((pub) => (
-          <div key={pub.id} className="flex items-center justify-between border rounded-lg p-5 hover:shadow-sm transition">
+          <div key={pub.id} className="bg-white rounded-lg overflow-hidden shadow-sm flex items-center justify-between p-5">
             <div>
               <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded mr-2">{pub.category}</span>
               <span className="text-xs text-gray-500">{pub.date} · {pub.lang}</span>

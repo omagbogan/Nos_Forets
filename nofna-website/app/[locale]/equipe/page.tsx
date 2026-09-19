@@ -18,7 +18,7 @@ export default function EquipePage() {
 
       <div className="grid md:grid-cols-4 gap-8">
         {team.map((member) => (
-          <div key={member.name} className="text-center">
+          <div key={member.name} className="bg-white rounded-lg overflow-hidden shadow-sm text-center p-4">
             <img src={member.photo} alt={member.name} className="w-32 h-32 rounded-full object-cover mx-auto mb-4" />
             <h2 className="font-bold">{member.name}</h2>
             <p className="text-sm text-gray-600">{member.role}</p>

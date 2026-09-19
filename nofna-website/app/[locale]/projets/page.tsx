@@ -16,7 +16,7 @@ import { getProjets } from "@/lib/strapi";
 
       <div className="grid md:grid-cols-3 gap-6">
         {projets.map((p: any) => (
-          <div key={p.documentId} className="bg-white rounded-lg overflow-hidden shadow-sm border">
+          <div key={p.documentId} className="bg-white rounded-lg overflow-hidden shadow-sm">
             <img
               src={`http://localhost:1337${p.image?.formats?.medium?.url || p.image?.url}`}
               alt={p.titre}

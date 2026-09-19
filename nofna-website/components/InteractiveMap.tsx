@@ -132,7 +132,7 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
     </div>
 
     {/* Liste des projets */}
-    <div className="overflow-y-auto max-h-full border rounded-lg divide-y">
+    <div className="bg-white rounded-lg overflow-hidden shadow-sm divide-y overflow-y-auto max-h-full">
       {withCoords.map((p) => (
         <button
           key={p.documentId}

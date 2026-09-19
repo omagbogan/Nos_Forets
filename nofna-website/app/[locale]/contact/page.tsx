@@ -81,7 +81,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="mt-8 h-56 rounded-lg overflow-hidden border">
+          <div className="mt-8 h-56 bg-white rounded-lg overflow-hidden shadow-sm">
             <iframe
               src="https://www.openstreetmap.org/export/embed.html?bbox=-8.3%2C6.9%2C-8.0%2C7.2&layer=mapnik"
               className="w-full h-full border-0"
