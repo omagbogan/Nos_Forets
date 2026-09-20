@@ -1,13 +1,13 @@
 "use client";
 import { useTranslations } from "next-intl";
-import { Trees, Users, Calendar } from "lucide-react";
+import { Trees, Leaf, Users, Calendar } from "lucide-react";
 
 export default function Stats() {
   const t = useTranslations("stats");
 
   const stats = [
-    { icon: Trees, value: "1 200+", label: t("hectares") },
-    { icon: Trees, value: "50 000+", label: t("arbres") },
+    { icon: Trees, value: "385+", label: t("hectares") },
+    { icon: Leaf, value: "50 000+", label: t("arbres") },
     { icon: Users, value: "12", label: t("projets") },
     { icon: Calendar, value: "8", label: t("annees") },
   ];

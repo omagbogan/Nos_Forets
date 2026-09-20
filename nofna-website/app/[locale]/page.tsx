@@ -2,10 +2,9 @@ import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import Mission from "@/components/Mission";
 import FeaturedProjects from "@/components/FeaturedProjects";
+import MapSection from "@/components/MapSection";
 import News from "@/components/News";
 import CtaBanner from "@/components/CtaBanner";
-import MapSection from "@/components/MapSection";
-
 
 export default async function Home({
   params,
@@ -19,9 +18,9 @@ export default async function Home({
       <Hero />
       <Stats />
       <Mission />
-      <FeaturedProjects />
+      <FeaturedProjects locale={locale} />
       <MapSection locale={locale} />
-      <News />
+      <News locale={locale} />
       <CtaBanner />
     </main>
   );

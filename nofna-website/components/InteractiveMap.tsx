@@ -132,19 +132,21 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
     </div>
 
     {/* Liste des projets */}
-    <div className="bg-white rounded-lg overflow-hidden shadow-sm divide-y overflow-y-auto max-h-full">
-      {withCoords.map((p) => (
-        <button
-          key={p.documentId}
-          onClick={() => setSelectedId(p.documentId)}
-          className={`w-full text-left p-3 transition ${
-            selectedId === p.documentId ? "bg-green-50 border-l-4 border-green-700" : "hover:bg-gray-50"
-          }`}
-        >
-          <p className="text-xs text-green-700 font-medium mb-1">{p.tag}</p>
-          <p className="text-sm font-semibold">{p.titre}</p>
-        </button>
-      ))}
+    <div className="bg-white rounded-lg overflow-hidden shadow-sm overflow-y-auto max-h-full p-2">
+      <div className="space-y-2">
+        {withCoords.map((p) => (
+          <button
+            key={p.documentId}
+            onClick={() => setSelectedId(p.documentId)}
+            className={`w-full text-left p-3 rounded-md transition ${
+              selectedId === p.documentId ? "bg-green-50 text-green-900 ring-1 ring-green-200" : "hover:bg-gray-50 text-gray-800"
+            }`}
+          >
+            <p className="text-xs text-green-700 font-medium mb-1">{p.tag}</p>
+            <p className="text-sm font-semibold">{p.titre}</p>
+          </button>
+        ))}
+      </div>
     </div>
   </div>
 );

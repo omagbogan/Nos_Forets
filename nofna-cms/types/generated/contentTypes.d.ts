@@ -622,6 +622,55 @@ export interface ApiMembreEquipeMembreEquipe
   };
 }
 
+export interface ApiPresentationPresentation extends Struct.SingleTypeSchema {
+  collectionName: 'presentations';
+  info: {
+    displayName: 'Presentation';
+    pluralName: 'presentations';
+    singularName: 'presentation';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::presentation.presentation'
+    >;
+    mission: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    qui_sommes_nous: Schema.Attribute.Blocks &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    vision: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+  };
+}
+
 export interface ApiProjetProjet extends Struct.CollectionTypeSchema {
   collectionName: 'projets';
   info: {
@@ -1269,6 +1318,7 @@ declare module '@strapi/strapi' {
       'api::actualite.actualite': ApiActualiteActualite;
       'api::global.global': ApiGlobalGlobal;
       'api::membre-equipe.membre-equipe': ApiMembreEquipeMembreEquipe;
+      'api::presentation.presentation': ApiPresentationPresentation;
       'api::projet.projet': ApiProjetProjet;
       'api::publication.publication': ApiPublicationPublication;
       'plugin::content-releases.release': PluginContentReleasesRelease;

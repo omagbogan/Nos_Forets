@@ -1,15 +1,11 @@
-"use client";
-import { useTranslations } from "next-intl";
+import { getProjets } from "@/lib/strapi";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
-const projects = [
-  { slug: "reforestation-tropicale", tag: "Reforestation", title: "Restauration des forêts tropicales", image: "/projects/reforestation.png" },
-  { slug: "recifs-coralliens", tag: "Biodiversité", title: "Protection des récifs coralliens", image: "/projects/reefs.png" },
-  { slug: "mangroves", tag: "Eau douce", title: "Protection des mangroves", image: "/projects/mangrove.png" },
-];
-
-export default function FeaturedProjects() {
-  const t = useTranslations("projetsVedette");
+export default async function FeaturedProjects({ locale }: { locale: string }) {
+  const allProjects = await getProjets(locale);
+  const projects = allProjects.slice(0, 4); // les 4 premiers pour la page d'accueil
+  const t = await getTranslations({ locale, namespace: "projetsVedette" });
 
   return (
     <section className="bg-green-50 py-16 px-4">
@@ -21,14 +17,20 @@ export default function FeaturedProjects() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 items-start">
-          {projects.map((p) => (
-            <div key={p.title} className="bg-white rounded-lg overflow-hidden shadow-sm h-full flex flex-col">
-              <img src={p.image} alt={p.title} className="w-full h-48 object-cover" />
-              <div className="p-5 flex flex-col flex-1">
+          {projects.map((p: any) => (
+            <div key={p.documentId} className="bg-white rounded-lg overflow-hidden shadow-sm h-full flex flex-col">
+              {(p.image?.formats?.medium?.url || p.image?.url) && (
+                <img
+                  src={`http://localhost:1337${p.image.formats?.medium?.url || p.image.url}`}
+                  alt={p.titre}
+                  className="w-full h-48 object-cover"
+                />
+              )}
+              <div className="p-5 flex flex-col flex-1">  
                 <span className="inline-block bg-green-700 text-white text-xs px-3 py-1 rounded-full mb-3 w-fit">
                   {p.tag}
                 </span>
-                <h3 className="font-bold text-lg mb-2">{p.title}</h3>
+                <h3 className="font-bold text-lg mb-2">{p.titre}</h3>
                 <Link href={`/projets/${p.slug}`} className="text-green-700 font-medium text-sm mt-auto">
                   {t("enSavoirPlus")} →
                 </Link>

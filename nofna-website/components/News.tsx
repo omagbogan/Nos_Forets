@@ -1,15 +1,11 @@
-"use client";
-import { useTranslations } from "next-intl";
+import { getActualites } from "@/lib/strapi";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
-const news = [
-  { slug: "bienfaits-reforestation-climat", date: "12 avril 2025", title: "Les bienfaits de la reforestation sur le climat", image: "/news/1.png" },
-  { slug: "nouveau-projet-tortues-marines", date: "17 mai 2025", title: "Un nouveau projet pour protéger les tortues marines", image: "/news/2.png" },
-  { slug: "mobilisation-citoyenne", date: "26 mars 2024", title: "Mobilisation citoyenne : retour sur notre dernière action", image: "/news/3.png" },
-];
-
-export default function News() {
-  const t = useTranslations("actualites");
+export default async function News({ locale }: { locale: string }) {
+  const allNews = await getActualites(locale);
+  const news = allNews.slice(0, 3);
+  const t = await getTranslations({ locale, namespace: "actualites" });
 
   return (
     <section className="py-16 px-4">
@@ -21,12 +17,20 @@ export default function News() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {news.map((n) => (
-            <div key={n.slug} className="bg-white rounded-lg overflow-hidden shadow-sm">
-              <img src={n.image} alt={n.title} className="w-full h-40 object-cover" />
+          {news.map((n: any) => (
+            <div key={n.documentId} className="bg-white rounded-lg overflow-hidden shadow-sm">
+              {n.image?.formats?.small?.url && (
+                <img
+                  src={`http://localhost:1337${n.image.formats.small.url || n.image.url}`}
+                  alt={n.titre}
+                  className="w-full h-40 object-cover"
+                />
+              )}
               <div className="p-5">
-                <p className="text-xs text-gray-500 mb-2">📅 {n.date}</p>
-                <h3 className="font-bold mb-2">{n.title}</h3>
+                <p className="text-xs text-gray-500 mb-2">
+                  📅 {new Date(n.date_publication).toLocaleDateString(locale)}
+                </p>
+                <h3 className="font-bold mb-2">{n.titre}</h3>
                 <Link href={`/actualites/${n.slug}`} className="text-green-700 font-medium text-sm">
                   {t("lireArticle")} →
                 </Link>
