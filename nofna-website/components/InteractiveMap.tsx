@@ -3,9 +3,6 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import { Link } from "@/i18n/navigation";
 import L from "leaflet";
-import "leaflet.markercluster/dist/MarkerCluster.css";
-import "leaflet.markercluster/dist/MarkerCluster.Default.css";
-import MarkerClusterGroup from "react-leaflet-cluster";
 
 const colorByTag: Record<string, string> = {
   Reforestation: "green",
@@ -79,11 +76,21 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
     ? [selectedProject.latitude, selectedProject.longitude]
     : null;
 
+  // Ferme le popup actif quand on sélectionne un autre projet
+  useEffect(() => {
+    Object.entries(markerRefs.current).forEach(([key, marker]) => {
+      if (!marker) return;
+      const isSelected = selectedPosition && key === selectedPosition.join(",");
+      if (!isSelected) {
+        marker.closePopup();
+      }
+    });
+  }, [selectedId, selectedPosition]);
+
   return (
     <div className="flex flex-col md:grid md:grid-cols-[1fr_280px] gap-4 h-full">
       {/* Carte */}
       <div className="relative h-72 md:h-full">
-        {/* Tags — version desktop, superposée sur la carte */}
         <div className="hidden md:flex absolute top-3 right-3 z-[500] flex-wrap gap-2">
           {tags.map((tag) => (
             <button
@@ -119,45 +126,42 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
             <FlyToSelected position={selectedPosition} markerRefs={markerRefs} />
           )}
 
-          <MarkerClusterGroup chunkedLoading disableClusteringAtZoom={9}>
-            {withCoords.map((p) => (
-              <Marker
-                key={p.documentId}
-                position={[p.latitude, p.longitude]}
-                icon={getIcon(p.tag, p.documentId === selectedId)}
-                ref={(ref) => {
-                  markerRefs.current[`${p.latitude},${p.longitude}`] = ref;
-                }}
-                eventHandlers={{
-                  click: (e) => {
-                    L.DomEvent.stopPropagation(e);
-                    setSelectedId(p.documentId);
-                  },
-                }}
-              >
-                <Popup closeOnClick={false} autoClose={false}>
-                  <div className="w-48">
-                    {p.image?.formats?.thumbnail?.url && (
-                      <img
-                        src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.image.formats.thumbnail.url}`}
-                        alt={p.titre}
-                        className="w-full h-24 object-cover rounded mb-2"
-                      />
-                    )}
-                    <p className="text-xs font-medium text-green-700 mb-1">{p.tag}</p>
-                    <p className="font-bold text-sm mb-2">{p.titre}</p>
-                    <Link href={`/projets/${p.slug}`} className="text-green-700 text-xs font-medium">
-                      Voir le projet →
-                    </Link>
-                  </div>
-                </Popup>
-              </Marker>
-            ))}
-          </MarkerClusterGroup>
+          {withCoords.map((p) => (
+            <Marker
+              key={p.documentId}
+              position={[p.latitude, p.longitude]}
+              icon={getIcon(p.tag, p.documentId === selectedId)}
+              ref={(ref) => {
+                markerRefs.current[`${p.latitude},${p.longitude}`] = ref;
+              }}
+              eventHandlers={{
+                click: (e) => {
+                  L.DomEvent.stopPropagation(e);
+                  setSelectedId(p.documentId);
+                },
+              }}
+            >
+              <Popup closeOnClick={false} autoClose={false}>
+                <div className="w-48">
+                  {p.image?.formats?.thumbnail?.url && (
+                    <img
+                      src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.image.formats.thumbnail.url}`}
+                      alt={p.titre}
+                      className="w-full h-24 object-cover rounded mb-2"
+                    />
+                  )}
+                  <p className="text-xs font-medium text-green-700 mb-1">{p.tag}</p>
+                  <p className="font-bold text-sm mb-2">{p.titre}</p>
+                  <Link href={`/projets/${p.slug}`} className="text-green-700 text-xs font-medium">
+                    Voir le projet →
+                  </Link>
+                </div>
+              </Popup>
+            </Marker>
+          ))}
         </MapContainer>
       </div>
 
-      {/* Tags — version mobile, sous la carte */}
       <div className="flex md:hidden flex-wrap gap-2 justify-center">
         {tags.map((tag) => (
           <button
@@ -177,7 +181,6 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
         ))}
       </div>
 
-      {/* Liste des projets */}
       <div className="bg-white rounded-lg overflow-hidden shadow-sm overflow-y-auto max-h-96 md:max-h-full p-2">
         <div className="space-y-2">
           {withCoords.map((p) => (
