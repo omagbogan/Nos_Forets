@@ -150,3 +150,4 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
     </div>
   </div>
 );
+}
