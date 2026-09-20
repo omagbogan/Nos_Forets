@@ -13,7 +13,7 @@ export default async function MapSection({ locale }: { locale: string }) {
         <h2 className="text-3xl font-bold text-green-900 mb-8">{t("titre")}</h2>
 
         <div className="bg-white rounded-lg overflow-hidden shadow-sm p-4">
-          <div className="h-[680px] md:h-[400px]">
+          <div className="h-[640px] md:h-[400px]">
             <MapWithList projects={projects} />
           </div>
         </div>
