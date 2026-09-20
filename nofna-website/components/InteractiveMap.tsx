@@ -181,7 +181,7 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
         ))}
       </div>
 
-      <div className="bg-white rounded-lg overflow-hidden shadow-sm overflow-y-auto max-h-96 md:max-h-full p-2">
+      <div className="bg-white rounded-lg overflow-hidden shadow-sm overflow-y-auto h-64 md:h-full p-2">
         <div className="space-y-2">
           {withCoords.map((p) => (
             <button
