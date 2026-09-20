@@ -115,7 +115,7 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
                 },
               }}
             >
-              <Popup>
+              <Popup closeOnClick={false} autoClose={false}>
                 <div className="w-48">
                   {p.image?.formats?.thumbnail?.url && (
                     <img
