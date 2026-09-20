@@ -65,9 +65,9 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
     : null;
 
   return (
-  <div className="grid md:grid-cols-[1fr_280px] gap-4 h-full">
+  <div className="flex flex-col md:grid md:grid-cols-[1fr_280px] gap-4 h-full">
     {/* Carte */}
-    <div className="relative h-full">
+    <div className="relative h-72 md:h-full">
       <div className="absolute top-3 right-3 z-[500] flex flex-wrap gap-2">
         {tags.map((tag) => (
           <button
@@ -132,7 +132,7 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
     </div>
 
     {/* Liste des projets */}
-    <div className="bg-white rounded-lg overflow-hidden shadow-sm overflow-y-auto max-h-full p-2">
+    <div className="bg-white rounded-lg overflow-hidden shadow-sm overflow-y-auto max-h-64 md:max-h-full p-2">
       <div className="space-y-2">
         {withCoords.map((p) => (
           <button
@@ -150,4 +150,3 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
     </div>
   </div>
 );
-}
