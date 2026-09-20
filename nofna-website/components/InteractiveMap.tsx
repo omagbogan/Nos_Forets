@@ -89,10 +89,10 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
       </div>
 
       <MapContainer
-        center={[7.5, -5.5]}
-        zoom={7}
-        scrollWheelZoom={false}
-        className="w-full h-full rounded-lg"
+          center={[7.5, -5.5]}
+          zoom={7}
+          scrollWheelZoom={false}
+          className="w-full h-full rounded-lg"
       >
         <TileLayer
           attribution='&copy; OpenStreetMap contributors'
