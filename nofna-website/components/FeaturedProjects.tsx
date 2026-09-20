@@ -21,7 +21,7 @@ export default async function FeaturedProjects({ locale }: { locale: string }) {
             <div key={p.documentId} className="bg-white rounded-lg overflow-hidden shadow-sm h-full flex flex-col">
               {(p.image?.formats?.medium?.url || p.image?.url) && (
                 <img
-                  src={`http://localhost:1337${p.image.formats?.medium?.url || p.image.url}`}
+                  src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.image.formats?.medium?.url || p.image.url}`}
                   alt={p.titre}
                   className="w-full h-48 object-cover"
                 />

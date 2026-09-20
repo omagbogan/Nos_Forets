@@ -113,7 +113,7 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
                 <div className="w-48">
                   {p.image?.formats?.thumbnail?.url && (
                     <img
-                      src={`http://localhost:1337${p.image.formats.thumbnail.url}`}
+                      src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.image.formats.thumbnail.url}`}
                       alt={p.titre}
                       className="w-full h-24 object-cover rounded mb-2"
                     />

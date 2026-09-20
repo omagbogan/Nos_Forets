@@ -20,7 +20,7 @@ export default async function EquipePage({
           <div key={m.documentId} className="text-center">
             {m.photo?.formats?.small?.url && (
               <img
-                src={`http://localhost:1337${m.photo.formats.small.url || m.photo.url}`}
+                src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${m.photo.formats.small.url || m.photo.url}`}
                 alt={m.nom}
                 className="w-32 h-32 rounded-full object-cover mx-auto mb-4"
               />

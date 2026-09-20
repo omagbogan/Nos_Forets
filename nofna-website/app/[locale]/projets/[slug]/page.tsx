@@ -23,7 +23,7 @@ export default async function ProjetDetailPage({
 
       {imageUrl && (
         <img
-          src={`http://localhost:1337${imageUrl}`}
+          src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${imageUrl}`}
           alt={projet.titre}
           className="w-full h-72 object-cover rounded-lg mb-6"
         />

@@ -21,7 +21,7 @@ export default async function ActualitesPage({
           <div key={n.documentId} className="bg-white rounded-lg overflow-hidden shadow-sm">
             {n.image?.formats?.small?.url && (
               <img
-                src={`http://localhost:1337${n.image.formats.small.url}`}
+                src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${n.image.formats.small.url}`}
                 alt={n.titre}
                 className="w-full h-40 object-cover"
               />

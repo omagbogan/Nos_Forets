@@ -1,4 +1,4 @@
-const STRAPI_URL = "http://localhost:1337";
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "${process.env.NEXT_PUBLIC_STRAPI_URL}";;
 
 export async function getProjets(locale: string) {
   const res = await fetch(`${STRAPI_URL}/api/projets?locale=${locale}&populate=*`, {

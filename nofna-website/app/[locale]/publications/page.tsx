@@ -27,7 +27,7 @@ export default async function PublicationsPage({
             </div>
             {pub.fichier?.url && (
               
-                <a href={`http://localhost:1337${pub.fichier.url}`}
+                <a href={`${process.env.NEXT_PUBLIC_STRAPI_URL}${pub.fichier.url}`}
                 download
                 className="bg-green-700 text-white text-sm font-medium px-4 py-2 rounded shrink-0"
                 >

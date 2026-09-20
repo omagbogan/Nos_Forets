@@ -18,7 +18,7 @@ import { getProjets } from "@/lib/strapi";
         {projets.map((p: any) => (
           <div key={p.documentId} className="bg-white rounded-lg overflow-hidden shadow-sm">
             <img
-              src={`http://localhost:1337${p.image?.formats?.medium?.url || p.image?.url}`}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.image?.formats?.medium?.url || p.image?.url}`}
               alt={p.titre}
               className="w-full h-40 object-cover"
             />
