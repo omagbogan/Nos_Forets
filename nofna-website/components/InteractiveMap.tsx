@@ -108,7 +108,12 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
               key={p.documentId}
               position={[p.latitude, p.longitude]}
               icon={getIcon(p.tag, p.documentId === selectedId)}
-              eventHandlers={{ click: () => setSelectedId(p.documentId) }}
+              eventHandlers={{
+                click: (e) => {
+                  L.DomEvent.stopPropagation(e);
+                  setSelectedId(p.documentId);
+                },
+              }}
             >
               <Popup>
                 <div className="w-48">
