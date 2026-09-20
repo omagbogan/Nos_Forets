@@ -119,7 +119,7 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
             <FlyToSelected position={selectedPosition} markerRefs={markerRefs} />
           )}
 
-          <MarkerClusterGroup chunkedLoading>
+          {/* <MarkerClusterGroup chunkedLoading> */}
             {withCoords.map((p) => (
               <Marker
                 key={p.documentId}
@@ -153,7 +153,7 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
                 </Popup>
               </Marker>
             ))}
-          </MarkerClusterGroup>
+          {/* </MarkerClusterGroup> */}
         </MapContainer>
       </div>
 
