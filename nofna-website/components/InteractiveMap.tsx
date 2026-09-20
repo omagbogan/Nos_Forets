@@ -68,7 +68,8 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
   <div className="flex flex-col md:grid md:grid-cols-[1fr_280px] gap-4 h-full">
     {/* Carte */}
     <div className="relative h-72 md:h-full">
-      <div className="absolute top-3 right-3 z-[500] flex flex-wrap gap-2">
+      {/* Tags — version desktop, superposée sur la carte */}
+      <div className="hidden md:flex absolute top-3 right-3 z-[500] flex-wrap gap-2">
         {tags.map((tag) => (
           <button
             key={tag}
