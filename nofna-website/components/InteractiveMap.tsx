@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import { Link } from "@/i18n/navigation";
 import L from "leaflet";
@@ -34,20 +34,35 @@ function FitBounds({ points }: { points: [number, number][] }) {
   return null;
 }
 
-// Centre la carte sur le projet sélectionné depuis la liste
-function FlyToSelected({ position }: { position: [number, number] | null }) {
+function FlyToSelected({
+  position,
+  markerRefs,
+}: {
+  position: [number, number] | null;
+  markerRefs: React.MutableRefObject<Record<string, L.Marker | null>>;
+}) {
   const map = useMap();
-  useMemo(() => {
+
+  useEffect(() => {
     if (position) {
       map.flyTo(position, 10, { duration: 0.8 });
+
+      const timer = setTimeout(() => {
+        const marker = markerRefs.current[position.join(",")];
+        marker?.openPopup();
+      }, 900);
+
+      return () => clearTimeout(timer);
     }
-  }, [position, map]);
+  }, [position, map, markerRefs]);
+
   return null;
 }
 
 export default function InteractiveMap({ projects }: { projects: any[] }) {
   const [activeTag, setActiveTag] = useState("Tous");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const markerRefs = useRef<Record<string, L.Marker | null>>({});
 
   const tags = useMemo(
     () => ["Tous", ...Array.from(new Set(projects.map((p) => p.tag).filter(Boolean)))],
@@ -65,11 +80,85 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
     : null;
 
   return (
-  <div className="flex flex-col md:grid md:grid-cols-[1fr_280px] gap-4 h-full">
-    {/* Carte */}
-    <div className="relative h-72 md:h-full">
-      {/* Tags — version desktop, superposée sur la carte */}
-      <div className="hidden md:flex absolute top-3 right-3 z-[500] flex-wrap gap-2">
+    <div className="flex flex-col md:grid md:grid-cols-[1fr_280px] gap-4 h-full">
+      {/* Carte */}
+      <div className="relative h-72 md:h-full">
+        {/* Tags — version desktop, superposée sur la carte */}
+        <div className="hidden md:flex absolute top-3 right-3 z-[500] flex-wrap gap-2">
+          {tags.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => {
+                setActiveTag(tag);
+                setSelectedId(null);
+              }}
+              className={`text-xs font-medium px-3 py-1.5 rounded-full border shadow-sm transition ${
+                activeTag === tag
+                  ? "bg-green-700 text-white border-green-700"
+                  : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50"
+              }`}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+
+        <MapContainer
+          center={[7.5, -5.5]}
+          zoom={7}
+          scrollWheelZoom={false}
+          className="w-full h-full rounded-lg"
+        >
+          <TileLayer
+            attribution='&copy; OpenStreetMap contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+
+          {points.length > 0 && !selectedPosition && <FitBounds points={points} />}
+          {selectedPosition && (
+            <FlyToSelected position={selectedPosition} markerRefs={markerRefs} />
+          )}
+
+          <MarkerClusterGroup chunkedLoading>
+            {withCoords.map((p) => (
+              <Marker
+                key={p.documentId}
+                position={[p.latitude, p.longitude]}
+                icon={getIcon(p.tag, p.documentId === selectedId)}
+                ref={(ref) => {
+                  markerRefs.current[`${p.latitude},${p.longitude}`] = ref;
+                }}
+                eventHandlers={{
+                  click: (e) => {
+                    L.DomEvent.stopPropagation(e);
+                    setSelectedId(p.documentId);
+                  },
+                }}
+              >
+                <Popup closeOnClick={false} autoClose={false}>
+                  <div className="w-48">
+                    {p.image?.formats?.thumbnail?.url && (
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.image.formats.thumbnail.url}`}
+                        alt={p.titre}
+                        className="w-full h-24 object-cover rounded mb-2"
+                      />
+                    )}
+                    <p className="text-xs font-medium text-green-700 mb-1">{p.tag}</p>
+                    <p className="font-bold text-sm mb-2">{p.titre}</p>
+                    <Link href={`/projets/${p.slug}`} className="text-green-700 text-xs font-medium">
+                      Voir le projet →
+                    </Link>
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
+          </MarkerClusterGroup>
+        </MapContainer>
+      </div>
+
+      {/* Tags — version mobile, sous la carte */}
+      <div className="flex md:hidden flex-wrap gap-2 justify-center">
         {tags.map((tag) => (
           <button
             key={tag}
@@ -88,72 +177,25 @@ export default function InteractiveMap({ projects }: { projects: any[] }) {
         ))}
       </div>
 
-      <MapContainer
-          center={[7.5, -5.5]}
-          zoom={7}
-          scrollWheelZoom={false}
-          className="w-full h-full rounded-lg"
-      >
-        <TileLayer
-          attribution='&copy; OpenStreetMap contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-
-        {points.length > 0 && !selectedPosition && <FitBounds points={points} />}
-        {selectedPosition && <FlyToSelected position={selectedPosition} />}
-
-        <MarkerClusterGroup chunkedLoading>
+      {/* Liste des projets */}
+      <div className="bg-white rounded-lg overflow-hidden shadow-sm overflow-y-auto max-h-96 md:max-h-full p-2">
+        <div className="space-y-2">
           {withCoords.map((p) => (
-            <Marker
+            <button
               key={p.documentId}
-              position={[p.latitude, p.longitude]}
-              icon={getIcon(p.tag, p.documentId === selectedId)}
-              eventHandlers={{
-                click: (e) => {
-                  L.DomEvent.stopPropagation(e);
-                  setSelectedId(p.documentId);
-                },
-              }}
+              onClick={() => setSelectedId(p.documentId)}
+              className={`w-full text-left p-3 rounded-md transition ${
+                selectedId === p.documentId
+                  ? "bg-green-50 text-green-900 ring-1 ring-green-200"
+                  : "hover:bg-gray-50 text-gray-800"
+              }`}
             >
-              <Popup closeOnClick={false} autoClose={false}>
-                <div className="w-48">
-                  {p.image?.formats?.thumbnail?.url && (
-                    <img
-                      src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${p.image.formats.thumbnail.url}`}
-                      alt={p.titre}
-                      className="w-full h-24 object-cover rounded mb-2"
-                    />
-                  )}
-                  <p className="text-xs font-medium text-green-700 mb-1">{p.tag}</p>
-                  <p className="font-bold text-sm mb-2">{p.titre}</p>
-                  <Link href={`/projets/${p.slug}`} className="text-green-700 text-xs font-medium">
-                    Voir le projet →
-                  </Link>
-                </div>
-              </Popup>
-            </Marker>
+              <p className="text-xs text-green-700 font-medium mb-1">{p.tag}</p>
+              <p className="text-sm font-semibold">{p.titre}</p>
+            </button>
           ))}
-        </MarkerClusterGroup>
-      </MapContainer>
-    </div>
-
-    {/* Liste des projets */}
-    <div className="bg-white rounded-lg overflow-hidden shadow-sm overflow-y-auto max-h-96 md:max-h-full p-2">
-      <div className="space-y-2">
-        {withCoords.map((p) => (
-          <button
-            key={p.documentId}
-            onClick={() => setSelectedId(p.documentId)}
-            className={`w-full text-left p-3 rounded-md transition ${
-              selectedId === p.documentId ? "bg-green-50 text-green-900 ring-1 ring-green-200" : "hover:bg-gray-50 text-gray-800"
-            }`}
-          >
-            <p className="text-xs text-green-700 font-medium mb-1">{p.tag}</p>
-            <p className="text-sm font-semibold">{p.titre}</p>
-          </button>
-        ))}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 }
